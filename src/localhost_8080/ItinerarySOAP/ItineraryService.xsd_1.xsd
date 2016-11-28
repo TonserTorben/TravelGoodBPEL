@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://itinerary.dtu/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://itinerary.dtu/">
+
+<xs:element name="Exception" type="tns:Exception"/>
+
+<xs:element name="bookItinerary" type="tns:bookItinerary"/>
+
+<xs:element name="bookItineraryResponse" type="tns:bookItineraryResponse"/>
+
+<xs:element name="cancelItinerary" type="tns:cancelItinerary"/>
+
+<xs:element name="cancelItineraryResponse" type="tns:cancelItineraryResponse"/>
+
+<xs:element name="createItinerary" type="tns:createItinerary"/>
+
+<xs:element name="createItineraryResponse" type="tns:createItineraryResponse"/>
+
+<xs:element name="getItinerary" type="tns:getItinerary"/>
+
+<xs:element name="getItineraryList" type="tns:getItineraryList"/>
+
+<xs:element name="getItineraryListResponse" type="tns:getItineraryListResponse"/>
+
+<xs:element name="getItineraryResponse" type="tns:getItineraryResponse"/>
+
+<xs:element name="reset" type="tns:reset"/>
+
+<xs:element name="resetResponse" type="tns:resetResponse"/>
+
+<xs:complexType name="getItineraryList">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getItineraryListResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:itinerary" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="itinerary">
+<xs:sequence>
+<xs:element name="id" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createItinerary">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="createItineraryResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bookItinerary">
+<xs:sequence>
+<xs:element name="id" type="xs:string" minOccurs="0"/>
+<xs:element name="creditcardNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="creditcardName" type="xs:string" minOccurs="0"/>
+<xs:element name="expirationMonth" type="xs:int"/>
+<xs:element name="expirationYear" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bookItineraryResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cancelItinerary">
+<xs:sequence>
+<xs:element name="id" type="xs:string" minOccurs="0"/>
+<xs:element name="creditcardNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="creditcardName" type="xs:string" minOccurs="0"/>
+<xs:element name="expirationMonth" type="xs:int"/>
+<xs:element name="expirationYear" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cancelItineraryResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="reset">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="resetResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getItinerary">
+<xs:sequence>
+<xs:element name="id" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getItineraryResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:itinerary" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

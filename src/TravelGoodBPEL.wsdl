@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="TravelGoodBPEL" targetNamespace="http://travelgood.ws"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://travelgood.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <types/>
+    <message name="BookingOperationRequest">
+        <part name="Status" type="xsd:string"/>
+    </message>
+    <message name="BookingOperationResponse">
+        <part name="Booked" type="xsd:boolean"/>
+    </message>
+    <message name="GetFlightsOperationRequest">
+        <part name="Start" type="xsd:string"/>
+        <part name="Destination" type="xsd:string"/>
+        <part name="Date" type="xsd:string"/>
+    </message>
+    <message name="GetFlightsOperationResponse">
+        <part name="Flights" type="xsd:string"/>
+    </message>
+    <message name="BookFlightOperationRequest">
+        <part name="BookingNumber" type="xsd:int"/>
+        <part name="CreditCardNumber" type="xsd:string"/>
+        <part name="CreditCardName" type="xsd:string"/>
+        <part name="ExpirationMonth" type="xsd:int"/>
+        <part name="ExpirationYear" type="xsd:int"/>
+    </message>
+    <message name="BookFlightOperationResponse">
+        <part name="Return" type="xsd:boolean"/>
+    </message>
+    <message name="CancelFlightOperationRequest">
+        <part name="BookingNumber" type="xsd:int"/>
+        <part name="CreditCardNumber" type="xsd:string"/>
+        <part name="CreditCardName" type="xsd:string"/>
+        <part name="ExpirationMonth" type="xsd:int"/>
+        <part name="ExpirationYear" type="xsd:int"/>
+        <part name="Price" type="xsd:int"/>
+    </message>
+    <message name="CancelFlightOperationResponse">
+        <part name="Return" type="xsd:boolean"/>
+    </message>
+    <message name="GetHotelsOperationRequest">
+        <part name="City" type="xsd:string"/>
+        <part name="ArrivalDate" type="xsd:string"/>
+        <part name="DepartureDate" type="xsd:string"/>
+    </message>
+    <message name="GetHotelsOperationResponse">
+        <part name="Hotels" type="xsd:string"/>
+    </message>
+    <message name="BookHotelOperationRequest">
+        <part name="BookingNumber" type="xsd:int"/>
+        <part name="CreditCardNumber" type="xsd:string"/>
+        <part name="CreditCardName" type="xsd:string"/>
+        <part name="ExpirationMonth" type="xsd:int"/>
+        <part name="ExpirationYear" type="xsd:int"/>
+        <part name="CreditCardGuaranteedRequired" type="xsd:boolean"/>
+    </message>
+    <message name="BookHotelOperationResponse">
+        <part name="Return" type="xsd:boolean"/>
+    </message>
+    <message name="CancelHotelOperationRequest">
+        <part name="BookingNumber" type="xsd:int"/>
+    </message>
+    <message name="CancelHotelOperationResponse">
+        <part name="Return" type="xsd:boolean"/>
+    </message>
+    <portType name="TravelGoodBPELPortType">
+        <operation name="BookingOperation">
+            <input name="input1" message="tns:BookingOperationRequest"/>
+            <output name="output1" message="tns:BookingOperationResponse"/>
+        </operation>
+        <operation name="GetFlightsOperation">
+            <input name="input2" message="tns:GetFlightsOperationRequest"/>
+            <output name="output2" message="tns:GetFlightsOperationResponse"/>
+        </operation>
+        <operation name="BookFlightOperation">
+            <input name="input3" message="tns:BookFlightOperationRequest"/>
+            <output name="output3" message="tns:BookFlightOperationResponse"/>
+        </operation>
+        <operation name="CancelFlightOperation">
+            <input name="input4" message="tns:CancelFlightOperationRequest"/>
+            <output name="output4" message="tns:CancelFlightOperationResponse"/>
+        </operation>
+        <operation name="GetHotelsOperation">
+            <input name="input5" message="tns:GetHotelsOperationRequest"/>
+            <output name="output5" message="tns:GetHotelsOperationResponse"/>
+        </operation>
+        <operation name="BookHotelOperation">
+            <input name="input6" message="tns:BookHotelOperationRequest"/>
+            <output name="output6" message="tns:BookHotelOperationResponse"/>
+        </operation>
+        <operation name="CancelHotelOperation">
+            <input name="input7" message="tns:CancelHotelOperationRequest"/>
+            <output name="output7" message="tns:CancelHotelOperationResponse"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="TravelGoodBPEL">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="TravelGoodBPELPortTypeRole" portType="tns:TravelGoodBPELPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

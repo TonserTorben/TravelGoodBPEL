@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://itinerary.dtu/" xmlns:ns1="http://lameduck.dtu/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://itinerary.dtu/">
+
+<xs:import namespace="http://lameduck.dtu/" schemaLocation="http://localhost:8080/ItinerarySOAP/FlightService?xsd=1"/>
+
+<xs:element name="Exception" type="tns:Exception"/>
+
+<xs:element name="ParseException" type="tns:ParseException"/>
+
+<xs:element name="addFlight" type="tns:addFlight"/>
+
+<xs:element name="addFlightResponse" type="tns:addFlightResponse"/>
+
+<xs:element name="getFlightList" type="tns:getFlightList"/>
+
+<xs:element name="getFlightListResponse" type="tns:getFlightListResponse"/>
+
+<xs:element name="removeFlight" type="tns:removeFlight"/>
+
+<xs:element name="removeFlightResponse" type="tns:removeFlightResponse"/>
+
+<xs:complexType name="removeFlight">
+<xs:sequence>
+<xs:element name="itineraryID" type="xs:string" minOccurs="0"/>
+<xs:element name="flightID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeFlightResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addFlight">
+<xs:sequence>
+<xs:element name="itineraryID" type="xs:string" minOccurs="0"/>
+<xs:element name="bookingNumber" type="xs:int"/>
+<xs:element name="start" type="xs:string" minOccurs="0"/>
+<xs:element name="destination" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:int"/>
+<xs:element name="carrier" type="xs:string" minOccurs="0"/>
+<xs:element name="airline" type="xs:string" minOccurs="0"/>
+<xs:element name="takeoff" type="xs:string" minOccurs="0"/>
+<xs:element name="landing" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addFlightResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getFlightList">
+<xs:sequence>
+<xs:element name="start" type="xs:string" minOccurs="0"/>
+<xs:element name="destination" type="xs:string" minOccurs="0"/>
+<xs:element name="date" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getFlightListResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:flight" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ParseException">
+<xs:sequence>
+<xs:element name="errorOffset" type="xs:int"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

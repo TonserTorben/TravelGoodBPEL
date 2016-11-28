@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://itinerary.dtu/" xmlns:ns1="http://niceview.dtu/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://itinerary.dtu/">
+
+<xs:import namespace="http://niceview.dtu/" schemaLocation="http://localhost:8080/ItinerarySOAP/HotelService?xsd=1"/>
+
+<xs:element name="Exception" type="tns:Exception"/>
+
+<xs:element name="addHotel" type="tns:addHotel"/>
+
+<xs:element name="addHotelResponse" type="tns:addHotelResponse"/>
+
+<xs:element name="getHotelList" type="tns:getHotelList"/>
+
+<xs:element name="getHotelListResponse" type="tns:getHotelListResponse"/>
+
+<xs:element name="removeHotel" type="tns:removeHotel"/>
+
+<xs:element name="removeHotelResponse" type="tns:removeHotelResponse"/>
+
+<xs:complexType name="removeHotel">
+<xs:sequence>
+<xs:element name="itineararyID" type="xs:string" minOccurs="0"/>
+<xs:element name="hotelID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeHotelResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addHotel">
+<xs:sequence>
+<xs:element name="itineraryID" type="xs:string" minOccurs="0"/>
+<xs:element name="hotelID" type="xs:int"/>
+<xs:element name="hotelAddress" type="xs:string" minOccurs="0"/>
+<xs:element name="hotelName" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:int"/>
+<xs:element name="creditcardGuarantee" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addHotelResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getHotelList">
+<xs:sequence>
+<xs:element name="city" type="xs:string" minOccurs="0"/>
+<xs:element name="arrival" type="xs:string" minOccurs="0"/>
+<xs:element name="departure" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getHotelListResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:hotel" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
