@@ -64,6 +64,37 @@
     <message name="CancelHotelOperationResponse">
         <part name="Return" type="xsd:boolean"/>
     </message>
+    <message name="BookItineraryOperationRequest">
+        <part name="id" type="xsd:string"/>
+        <part name="creditcardNumber" type="xsd:string"/>
+        <part name="creditcardName" type="xsd:string"/>
+        <part name="expirationMonth" type="xsd:int"/>
+        <part name="expirationYear" type="xsd:int"/>
+    </message>
+    <message name="BookItineraryOperationResponse">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="cancelItineraryOperationRequest">
+        <part name="id" type="xsd:string"/>
+        <part name="creditcardNumber" type="xsd:string"/>
+        <part name="creditcardName" type="xsd:string"/>
+        <part name="expirationMonth" type="xsd:int"/>
+        <part name="expirationYear" type="xsd:int"/>
+    </message>
+    <message name="cancelItineraryOperationResponse">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="resetOperationRequest"/>
+    <message name="getItineraryOperationRequest">
+        <part name="id" type="xsd:string"/>
+    </message>
+    <message name="getItineraryOperationResponse">
+        <part name="itinerary" type="xsd:string"/>
+    </message>
+    <message name="getItineraryListOperationRequest"/>
+    <message name="getItineraryListOperationResponse">
+        <part name="list" type="xsd:string"/>
+    </message>
     <portType name="TravelGoodBPELPortType">
         <operation name="BookingOperation">
             <input name="input1" message="tns:BookingOperationRequest"/>
@@ -92,6 +123,25 @@
         <operation name="CancelHotelOperation">
             <input name="input7" message="tns:CancelHotelOperationRequest"/>
             <output name="output7" message="tns:CancelHotelOperationResponse"/>
+        </operation>
+        <operation name="BookItineraryOperation">
+            <input name="input8" message="tns:BookItineraryOperationRequest"/>
+            <output name="output8" message="tns:BookItineraryOperationResponse"/>
+        </operation>
+        <operation name="cancelItineraryOperation">
+            <input name="input9" message="tns:cancelItineraryOperationRequest"/>
+            <output name="output9" message="tns:cancelItineraryOperationResponse"/>
+        </operation>
+        <operation name="resetOperation">
+            <input name="input10" message="tns:resetOperationRequest"/>
+        </operation>
+        <operation name="getItineraryOperation">
+            <input name="input11" message="tns:getItineraryOperationRequest"/>
+            <output name="output10" message="tns:getItineraryOperationResponse"/>
+        </operation>
+        <operation name="getItineraryListOperation">
+            <input name="input12" message="tns:getItineraryListOperationRequest"/>
+            <output name="output11" message="tns:getItineraryListOperationResponse"/>
         </operation>
     </portType>
     <plnk:partnerLinkType name="TravelGoodBPEL">

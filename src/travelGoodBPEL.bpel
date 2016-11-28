@@ -28,6 +28,27 @@
         <partnerLink name="PartnerLink1" xmlns:tns="http://travelgood.ws" partnerLinkType="tns:TravelGoodBPEL" myRole="TravelGoodBPELPortTypeRole"/>
     </partnerLinks>
     <variables>
+        <variable name="CancelItineraryOperationOut" xmlns:tns="http://travelgood.ws" messageType="tns:cancelItineraryOperationResponse"/>
+        <variable name="CancelItineraryOperationIn" xmlns:tns="http://travelgood.ws" messageType="tns:cancelItineraryOperationRequest"/>
+        <variable name="CancelHotelOperationOut2" xmlns:tns="http://travelgood.ws" messageType="tns:CancelHotelOperationResponse"/>
+        <variable name="CancelItineraryOut" xmlns:tns="http://itinerary.dtu/" messageType="tns:cancelItineraryResponse"/>
+        <variable name="CancelItineraryIn" xmlns:tns="http://itinerary.dtu/" messageType="tns:cancelItinerary"/>
+        <variable name="CancelHotelOperationIn1" xmlns:tns="http://travelgood.ws" messageType="tns:CancelHotelOperationRequest"/>
+        <variable name="GetItineraryOperationOut" xmlns:tns="http://travelgood.ws" messageType="tns:getItineraryOperationResponse"/>
+        <variable name="GetItineraryOut" xmlns:tns="http://itinerary.dtu/" messageType="tns:getItineraryResponse"/>
+        <variable name="GetItineraryIn" xmlns:tns="http://itinerary.dtu/" messageType="tns:getItinerary"/>
+        <variable name="GetItineraryOperationIn" xmlns:tns="http://travelgood.ws" messageType="tns:getItineraryOperationRequest"/>
+        <variable name="GetItineraryListOperationOut" xmlns:tns="http://travelgood.ws" messageType="tns:getItineraryListOperationResponse"/>
+        <variable name="GetItineraryListOut" xmlns:tns="http://itinerary.dtu/" messageType="tns:getItineraryListResponse"/>
+        <variable name="GetItineraryListIn" xmlns:tns="http://itinerary.dtu/" messageType="tns:getItineraryList"/>
+        <variable name="GetItineraryListOperationIn" xmlns:tns="http://travelgood.ws" messageType="tns:getItineraryListOperationRequest"/>
+        <variable name="ResetOut" xmlns:tns="http://itinerary.dtu/" messageType="tns:resetResponse"/>
+        <variable name="ResetIn" xmlns:tns="http://itinerary.dtu/" messageType="tns:reset"/>
+        <variable name="ResetOperationIn" xmlns:tns="http://travelgood.ws" messageType="tns:resetOperationRequest"/>
+        <variable name="BookItineraryOperationOut" xmlns:tns="http://travelgood.ws" messageType="tns:BookItineraryOperationResponse"/>
+        <variable name="BookItineraryOut" xmlns:tns="http://itinerary.dtu/" messageType="tns:bookItineraryResponse"/>
+        <variable name="BookItineraryIn" xmlns:tns="http://itinerary.dtu/" messageType="tns:bookItinerary"/>
+        <variable name="BookItineraryOperationIn" xmlns:tns="http://travelgood.ws" messageType="tns:BookItineraryOperationRequest"/>
         <variable name="CancelHotelOperationOut1" xmlns:tns="http://travelgood.ws" messageType="tns:CancelHotelOperationResponse"/>
         <variable name="RemoveHotelOut" xmlns:tns="http://itinerary.dtu/" messageType="tns:removeHotelResponse"/>
         <variable name="RemoveHotelIn" xmlns:tns="http://itinerary.dtu/" messageType="tns:removeHotel"/>
@@ -68,9 +89,10 @@
         <variable name="BookingOperationIn" xmlns:tns="http://travelgood.ws" messageType="tns:BookingOperationRequest"/>
     </variables>
     <sequence>
-        <while name="While1" xmlns:tns="http://travelgood.ws">
-            <condition>'Booking' = $BookingOperationIn.Status</condition>
-                <sequence name="Sequence1">
+        <if name="If2">
+            <while name="While1" xmlns:tns="http://travelgood.ws">
+                <condition>'Booking' = $BookingOperationIn.Status</condition>
+                    <sequence name="Sequence1">
                     <if name="If1">
                         <condition>stub() = stub();''</condition>
                         <sequence name="GetFlights">
@@ -243,27 +265,150 @@
                                             <reply name="Reply5" partnerLink="PartnerLink1" operation="BookHotelOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="BookHotelOperationOut"/>
                                     </sequence>
                             </elseif>
-                            <else>
-                                <sequence name="CancelHotel">
-                                        <receive name="Receive7" createInstance="no" partnerLink="PartnerLink1" operation="CancelHotelOperation" portType="tns:TravelGoodBPELPortType" variable="CancelHotelOperationIn"/>
-                                            <assign name="Assign11">
-                                                <copy>
-                                                        <from variable="CancelHotelOperationIn" part="BookingNumber"/>
-                                                            <to>$CancelHotelIn.parameters/bookingNumber</to>
-                                                    </copy>
-                                            </assign>
-                                            <invoke name="Invoke6" partnerLink="BookHotel" operation="removeHotel" portType="tns:HotelService" inputVariable="RemoveHotelIn" outputVariable="RemoveHotelOut" xmlns:tns="http://itinerary.dtu/"/>
-                                            <assign name="Assign12">
-                                                <copy>
-                                                        <from>$CancelHotelOut.parameters/return</from>
-                                                            <to variable="CancelHotelOperationOut" part="Return"/>
-                                                    </copy>
-                                            </assign>
-                                            <reply name="Reply6" partnerLink="PartnerLink1" operation="CancelHotelOperation" portType="tns:TravelGoodBPELPortType" variable="CancelHotelOperationOut1"/>
-                                    </sequence>
-                            </else>
+                        <elseif>
+                            <sequence name="CancelHotel">
+                                <receive name="Receive7" createInstance="no" partnerLink="PartnerLink1" operation="CancelHotelOperation" portType="tns:TravelGoodBPELPortType" variable="CancelHotelOperationIn"/>
+                                    <assign name="Assign11">
+                                        <copy>
+                                                <from variable="CancelHotelOperationIn" part="BookingNumber"/>
+                                                    <to>$CancelHotelIn.parameters/bookingNumber</to>
+                                            </copy>
+                                    </assign>
+                                    <invoke name="Invoke6" partnerLink="BookHotel" operation="removeHotel" portType="tns:HotelService" inputVariable="RemoveHotelIn" outputVariable="RemoveHotelOut" xmlns:tns="http://itinerary.dtu/"/>
+                                    <assign name="Assign12">
+                                        <copy>
+                                                <from>$CancelHotelOut.parameters/return</from>
+                                                    <to variable="CancelHotelOperationOut" part="Return"/>
+                                            </copy>
+                                    </assign>
+                                    <reply name="Reply6" partnerLink="PartnerLink1" operation="CancelHotelOperation" portType="tns:TravelGoodBPELPortType" variable="CancelHotelOperationOut1"/>
+                            </sequence>
+                        </elseif>
+                        <elseif>
+                            <sequence name="BookItinerary">
+                                <receive name="Receive11" createInstance="no" partnerLink="PartnerLink1" operation="BookItineraryOperation" portType="tns:TravelGoodBPELPortType" variable="BookItineraryOperationIn"/>
+                                <assign name="Assign19">
+                                    <copy>
+                                        <from variable="BookItineraryOperationIn" part="id"/>
+                                        <to>$BookItineraryIn.parameters/id</to>
+                                    </copy>
+                                    <copy>
+                                        <from variable="BookItineraryOperationIn" part="creditcardNumber"/>
+                                        <to>$BookItineraryIn.parameters/creditcardNumber</to>
+                                    </copy>
+                                    <copy>
+                                        <from variable="BookItineraryOperationIn" part="creditcardName"/>
+                                        <to>$BookItineraryIn.parameters/creditcardName</to>
+                                    </copy>
+                                    <copy>
+                                        <from variable="BookItineraryOperationIn" part="expirationMonth"/>
+                                        <to>$BookItineraryIn.parameters/expirationMonth</to>
+                                    </copy>
+                                    <copy>
+                                        <from variable="BookItineraryOperationIn" part="expirationYear"/>
+                                        <to>$BookItineraryIn.parameters/expirationYear</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke10" partnerLink="Itinerary" operation="bookItinerary" xmlns:tns="http://itinerary.dtu/" portType="tns:ItineraryService" inputVariable="BookItineraryIn" outputVariable="BookItineraryOut"/>
+                                <assign name="Assign20">
+                                    <copy>
+                                        <from>$BookItineraryOut.parameters/return</from>
+                                        <to variable="BookItineraryOperationOut" part="return"/>
+                                    </copy>
+                                </assign>
+                                <reply name="Reply10" partnerLink="PartnerLink1" operation="BookItineraryOperation" portType="tns:TravelGoodBPELPortType" variable="BookItineraryOperationOut"/>
+                            </sequence>
+                        </elseif>
+                        <else>
+                            <sequence name="reset">
+                                <receive name="Receive12" createInstance="no" partnerLink="PartnerLink1" operation="resetOperation" portType="tns:TravelGoodBPELPortType" variable="ResetOperationIn"/>
+                                <assign name="Assign21">
+                                    <copy>
+                                        <from variable="ResetOperationIn"/>
+                                        <to variable="ResetIn" part="parameters"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke11" partnerLink="Itinerary" operation="reset" xmlns:tns="http://itinerary.dtu/" portType="tns:ItineraryService" inputVariable="ResetIn" outputVariable="ResetOut"/>
+                            </sequence>
+                        </else>
                     </if>
                 </sequence>
-        </while>
+            </while>
+            <else>
+                <if name="If3">
+                    <sequence name="getItineraryList">
+                        <receive name="Receive8" createInstance="no" partnerLink="PartnerLink1" operation="getItineraryListOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="GetItineraryListOperationIn"/>
+                        <assign name="Assign14">
+                            <copy>
+                                <from variable="GetItineraryListOperationIn"/>
+                                <to variable="GetItineraryListIn" part="parameters"/>
+                            </copy>
+                        </assign>
+                        <invoke name="Invoke7" partnerLink="Itinerary" operation="getItineraryList" xmlns:tns="http://itinerary.dtu/" portType="tns:ItineraryService" inputVariable="GetItineraryListIn" outputVariable="GetItineraryListOut"/>
+                        <assign name="Assign13">
+                            <copy>
+                                <from>$GetItineraryListOut.parameters/return</from>
+                                <to variable="GetItineraryListOperationOut" part="list"/>
+                            </copy>
+                        </assign>
+                        <reply name="Reply7" partnerLink="PartnerLink1" operation="getItineraryListOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="GetItineraryListOperationOut"/>
+                    </sequence>
+                    <elseif>
+                        <sequence name="getItinerary">
+                            <receive name="Receive9" createInstance="no" partnerLink="PartnerLink1" operation="getItineraryOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="GetItineraryOperationIn"/>
+                            <assign name="Assign15">
+                                <copy>
+                                    <from variable="GetItineraryOperationIn" part="id"/>
+                                    <to>$GetItineraryIn.parameters/id</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Invoke8" partnerLink="Itinerary" operation="getItinerary" xmlns:tns="http://itinerary.dtu/" portType="tns:ItineraryService" inputVariable="GetItineraryIn" outputVariable="GetItineraryOut"/>
+                            <assign name="Assign16">
+                                <copy>
+                                    <from>$GetItineraryOut.parameters/return</from>
+                                    <to variable="GetItineraryOperationOut" part="itinerary"/>
+                                </copy>
+                            </assign>
+                            <reply name="Reply8" partnerLink="PartnerLink1" operation="getItineraryOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="GetItineraryOperationOut"/>
+                        </sequence>
+                    </elseif>
+                    <else>
+                        <sequence name="cancelItinerary">
+                            <receive name="Receive10" createInstance="no" partnerLink="PartnerLink1" operation="cancelItineraryOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="CancelItineraryOperationIn"/>
+                            <assign name="Assign17">
+                                <copy>
+                                    <from variable="CancelItineraryOperationIn" part="id"/>
+                                    <to>$CancelItineraryIn.parameters/id</to>
+                                </copy>
+                                <copy>
+                                    <from variable="CancelItineraryOperationIn" part="creditcardNumber"/>
+                                    <to>$CancelItineraryIn.parameters/creditcardNumber</to>
+                                </copy>
+                                <copy>
+                                    <from variable="CancelItineraryOperationIn" part="creditcardName"/>
+                                    <to>$CancelItineraryIn.parameters/creditcardName</to>
+                                </copy>
+                                <copy>
+                                    <from variable="CancelItineraryOperationIn" part="expirationMonth"/>
+                                    <to>$CancelItineraryIn.parameters/expirationMonth</to>
+                                </copy>
+                                <copy>
+                                    <from variable="CancelItineraryOperationIn" part="expirationYear"/>
+                                    <to>$CancelItineraryIn.parameters/expirationYear</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Invoke9" partnerLink="Itinerary" operation="cancelItinerary" xmlns:tns="http://itinerary.dtu/" portType="tns:ItineraryService" inputVariable="CancelItineraryIn" outputVariable="CancelItineraryOut"/>
+                            <assign name="Assign18">
+                                <copy>
+                                    <from>$CancelItineraryOut.parameters/return</from>
+                                    <to variable="CancelItineraryOperationOut" part="return"/>
+                                </copy>
+                            </assign>
+                            <reply name="Reply9" partnerLink="PartnerLink1" operation="cancelItineraryOperation" xmlns:tns="http://travelgood.ws" portType="tns:TravelGoodBPELPortType" variable="CancelItineraryOperationOut"/>
+                        </sequence>
+                    </else>
+                </if>
+            </else>
+        </if>
     </sequence>
 </process>
